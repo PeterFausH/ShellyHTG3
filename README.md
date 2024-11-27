@@ -19,35 +19,51 @@ this is mentioned to be copied into your existing telegraf.conf where you alread
 makes it easy to determine your statements in telegraf.out
 
 `topics = ["shellyhtg3-mac/status/temperature:0",`
+
 `          "shellyhtg3-mac/status/humidity:0"]`
+
 These are the two statements i was interested in. Please use mac of your device instead of mac.
 
 `data_format = "json_v2"`
 as your shelly device delivers json data like this: 
+
 `shellyhtg3-5432045634f0/status/humidity:0 {"id": 0,"rh":44.9}`
 it's easy to parse if json is used as data_format
 
 
 #[[inputs.mqtt_consumer.topic_parsing]]
+
 `      topic =  "shellyhtg3-5432045634f0/status/+"`
+
 `      measurement = "ShellyHTG3"`
+
 `      tags = "serial/_/_"`
+
 `      [[processors.pivot]]`
+
 `        tag_key = "serial"`
+
 `        value_key = "value"`
+
 check that you are using your proper mac for your device
 measurement is the name you can select in your grafana dashboard
 If having more than one device, use a tag to specify the one you want to select data from.
 
 
 #[[inputs.mqtt_consumer.json_v2]]
-    [[inputs.mqtt_consumer.json_v2.object]]
-      path = "@this"
+`    [[inputs.mqtt_consumer.json_v2.object]]`
+
+`      path = "@this"`
+
 "@this" in path"selects the entire json payload
 
-#[inputs.mqtt_consumer.json_v2.object.fields]
-        tC = "float"
-        rh = "float"
+
+`#[inputs.mqtt_consumer.json_v2.object.fields]`
+
+`        tC = "float"`
+
+`        rh = "float"`
+
 here we define that we want to have float values from tC and rH. 
 
 
@@ -59,7 +75,6 @@ done
 
 ## Contributing
 open to contributions
-
 
 ## License
 MIT
