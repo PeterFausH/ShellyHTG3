@@ -1,0 +1,27 @@
+
+# Read metrics from MQTT topic(s) for ShellyHTG3
+#shellyhtg3-5432045634f0/status/humidity:0 {"id": 0,"rh":41.3}
+#shellyhtg3-5432045634f0/status/temperature:0 {"id": 0,"tC":22.7, "tF":72.8}
+
+[[inputs.mqtt_consumer]]
+  name_override = "Shelly_HTG3"
+  servers = ["tcp://localhost:1883"]
+  qos = 0
+  connection_timeout = "30s"
+  topics = ["shellyhtg3-5432045634f0/status/temperature:0",
+            "shellyhtg3-5432045634f0/status/humidity:0"]
+  persistent_session = false
+  data_format = "json_v2"
+  [[inputs.mqtt_consumer.topic_parsing]]
+      topic =  "shellyhtg3-5432045634f0/status/+"
+      measurement = "ShellyHTG3"
+      tags = "serial/_/_"
+      [[processors.pivot]]
+        tag_key = "serial"
+        value_key = "value"
+[[inputs.mqtt_consumer.json_v2]]
+    [[inputs.mqtt_consumer.json_v2.object]]
+      path = "@this"
+      [inputs.mqtt_consumer.json_v2.object.fields]
+        tC = "float"
+        rh = "float"
