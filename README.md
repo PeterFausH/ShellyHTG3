@@ -5,10 +5,20 @@ Telegraf Config Shelly HTG3
 as there are not many descriptions how to send climate data from Shelly to Influx-Database please feel free to use this telegraf config.
 
 ## Visuals
-![Shelly HTG3 device](/media/ShellyHTG3.jpg "the device itself")
+the device itself:
+![Shelly HTG3 device](/media/ShellyHTG3.jpg "the device itself"]
+
+topics we are interested in:
 ![mosquitto](/media/mosquitto_topic.png "topics we are interested in")
+
+used part of the telegraf.conf
+
 ![the config part](/media/telegraf_conf.png "config part" )
+
+temporary output of telegraf
 ![telegraf Output](/media/telegraf_out.png "output details")
+
+how to call data in Grafana
 ![Grafana Query](/media/Grafana_Query.png "how to call data" )
 
 ## Installation
@@ -51,6 +61,7 @@ If having more than one device, use a tag to specify the one you want to select 
 
 
 #[[inputs.mqtt_consumer.json_v2]]
+
 `    [[inputs.mqtt_consumer.json_v2.object]]`
 
 `      path = "@this"`
@@ -66,6 +77,9 @@ If having more than one device, use a tag to specify the one you want to select 
 
 here we define that we want to have float values from tC and rH. 
 
+## Info
+lots of people are complaining about the time between messages been sent. I checked with 2 devices, one close to the ventilation of my laptop which results in frequent temperature changes, and another one in a chilled corner of the building. See the number of messages been sent below:
+![Shelly HTG3 messages](/media/Meldezeiten_HTG3.png "depending on themperature change you get more or less messages")
 
 ## Support
 pf@nc-x.com
