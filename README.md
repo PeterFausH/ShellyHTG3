@@ -21,15 +21,17 @@ temporary output of telegraf
 how to call data in Grafana
 ![Grafana Query](/media/Grafana_Query.png "how to call data" )
 
-Updated Media if having multiple HTG3s in operation:
+## Updated Media if having multiple HTG3s in operation:
 
 first modify your MQTT-Setup for easy identification:
 ![the config part](/media/HTG3_MQTT_Setup.png "config part" )
 
 easy separation with tags
+
 ![the config part](/media/Telegraf_conf_allgemein.png "config part" )
 
 easy identification of wanted device info
+
 ![Grafana Query](/media/Grafana_query.png "how to call data" )
 
 
@@ -91,14 +93,20 @@ here we define that we want to have float values from tC and rH.
 
 ## Multiple devices
 `#HTG allgemein. Im Gerät den Topic anpassen auf shellyhtg3/Keller_2827/ oder so`
+
 `#shellyhtg3/Keller_2878/status/humidity:0 {"id": 0,"rh":62.9}`
+
 `#shellyhtg3/Keller_2878/status/temperature:0 {"id": 0,"tC":27.5, "tF":81.6}`
+
 `#shellyhtg3/Keller_2878/status/devicepower:0 {"id": 0,"battery":{"V":6.34, "percent":100} ?`
+
 `[[inputs.mqtt_consumer]]`
+
 `  name_override = "Shelly_HTG3_a"`
-`  servers = ["tcp://localhost:1883"]`
-`  qos = 0`
-`  connection_timeout = "30s"`
+
+`  servers = ["tcp://localhost:1883"]
+  qos = 0
+  connection_timeout = "30s"`
 `  topics = ["shellyhtg3/+/status/temperature:0",`
 `            "shellyhtg3/+/status/humidity:0",`
 `            "shellyhtg3/+/status/devicepower:0"]`
