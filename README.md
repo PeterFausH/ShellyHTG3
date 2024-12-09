@@ -105,26 +105,44 @@ here we define that we want to have float values from tC and rH.
 `  name_override = "Shelly_HTG3_a"`
 
 `  servers = ["tcp://localhost:1883"]
-  qos = 0
-  connection_timeout = "30s"`
+   qos = 0
+   connection_timeout = "30s"`
 `  topics = ["shellyhtg3/+/status/temperature:0",`
+
 `            "shellyhtg3/+/status/humidity:0",`
+
 `            "shellyhtg3/+/status/devicepower:0"]`
+
 `  persistent_session = false`
+
 `  data_format = "json_v2"`
+
 `  [[inputs.mqtt_consumer.topic_parsing]]`
+
 `      topic =  "shellyhtg3/+/status/+"`
+
 `      #measurement = "ShellyHTG3"`
+
 `      tags = "_/serial/_/_"`
+
 `      [[processors.pivot]]`
+
 `        tag_key = "serial"`
+
 `        value_key = "value"`
+
 `[[inputs.mqtt_consumer.json_v2]]`
+
 `    [[inputs.mqtt_consumer.json_v2.object]]`
+
 `      path = "@this"`
+
 `      [inputs.mqtt_consumer.json_v2.object.fields]`
+
 `        tC = "float"`
+
 `        rh = "float"`
+
 `        V  = "float"`
 
 
